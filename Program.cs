@@ -148,7 +148,16 @@
             {
                 throw new UserRegisterException("Password should have at least 1 numeric character.");
             }
+            else if (!password.Any(IsSpecialCharacter))
+            {
+                throw new UserRegisterException("Password should have exactly 1 special character.");
+            }
+
             return password;
+        }
+        static bool IsSpecialCharacter(char c)
+        {
+            return !char.IsLetterOrDigit(c);
         }
     }
 }
