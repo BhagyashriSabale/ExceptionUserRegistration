@@ -7,21 +7,23 @@
             Console.WriteLine("Welcome Exception Problem");
             try
             {
-                
-               
+
+
                 string firstName = GetValidFirstName();
                 string lastName = GetValidLastName();
                 string email = GetValidEMail();
+                string mobileNumber = GetValidMobileNumber();
                 Console.WriteLine("Registration successful!");
                 Console.WriteLine("First Name: " + firstName);
                 Console.WriteLine("Last Name: " + lastName);
                 Console.WriteLine("Email: " + email);
+                Console.WriteLine("Mobile Number: " + mobileNumber);
             }
             catch (UserRegisterException ex)
             {
                 Console.WriteLine("Registration failed: " + ex.Message);
             }
-            
+
         }
         static string GetValidFirstName()
         {
@@ -95,6 +97,33 @@
             }
 
             return email;
+        }
+        static string GetValidMobileNumber()
+        {
+            Console.Write("Enter Mobile Number: ");
+            string mobileNumber = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(mobileNumber))
+            {
+                throw new UserRegisterException("Mobile Number cannot be empty.");
+            }
+            string[] parts = mobileNumber.Split(' ');
+            if (parts.Length != 2 || parts[0].Length != 2 || parts[1].Length != 10)
+            {
+                throw new UserRegisterException("Invalid Mobile Number format.");
+            }
+
+            if (!int.TryParse(parts[0], out int countryCode))
+            {
+                throw new UserRegisterException("Invalid Mobile Number format.");
+            }
+
+            if (!long.TryParse(parts[1], out long number))
+            {
+                throw new UserRegisterException("Invalid Mobile Number format.");
+            }
+
+            return mobileNumber;
         }
     }
 }
