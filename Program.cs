@@ -144,7 +144,10 @@
             {
                 throw new UserRegisterException("Password should have at least 1 uppercase letter.");
             }
-
+            else if (!password.Any(char.IsDigit))
+            {
+                throw new UserRegisterException("Password should have at least 1 numeric character.");
+            }
             return password;
         }
     }
