@@ -140,6 +140,10 @@
             {
                 throw new UserRegisterException("Password should have a minimum of 8 characters.");
             }
+            else if (!password.Any(char.IsUpper))
+            {
+                throw new UserRegisterException("Password should have at least 1 uppercase letter.");
+            }
 
             return password;
         }
