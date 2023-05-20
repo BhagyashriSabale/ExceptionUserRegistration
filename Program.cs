@@ -13,11 +13,13 @@
                 string lastName = GetValidLastName();
                 string email = GetValidEMail();
                 string mobileNumber = GetValidMobileNumber();
+                string password = GetValidPassword();
                 Console.WriteLine("Registration successful!");
                 Console.WriteLine("First Name: " + firstName);
                 Console.WriteLine("Last Name: " + lastName);
                 Console.WriteLine("Email: " + email);
                 Console.WriteLine("Mobile Number: " + mobileNumber);
+                Console.WriteLine("Password: " + password);
             }
             catch (UserRegisterException ex)
             {
@@ -124,6 +126,22 @@
             }
 
             return mobileNumber;
+        }
+        static string GetValidPassword()
+        {
+            Console.Write("Enter Password: ");
+            string password = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(password))
+            {
+                throw new UserRegisterException("Password cannot be empty.");
+            }
+            else if (password.Length < 8)
+            {
+                throw new UserRegisterException("Password should have a minimum of 8 characters.");
+            }
+
+            return password;
         }
     }
 }
