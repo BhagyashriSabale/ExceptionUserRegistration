@@ -10,8 +10,10 @@
                 
                
                 string firstName = GetValidFirstName();
+                string lastName = GetValidLastName();
                 Console.WriteLine("Registration successful!");
                 Console.WriteLine("First Name: " + firstName);
+                Console.WriteLine("Last Name: " + lastName);
             }
             catch (UserRegisterException ex)
             {
@@ -38,6 +40,26 @@
             }
 
             return firstName;
+        }
+        static string GetValidLastName()
+        {
+            Console.Write("Enter Last Name: ");
+            string lastName = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(lastName))
+            {
+                throw new UserRegisterException("Last Name cannot be empty.");
+            }
+            else if (lastName.Length < 3)
+            {
+                throw new UserRegisterException("Last Name should have a minimum of 3 characters.");
+            }
+            else if (!char.IsUpper(lastName[0]))
+            {
+                throw new UserRegisterException("Last Name should start with a capital letter.");
+            }
+
+            return lastName;
         }
     }
 }
