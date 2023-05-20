@@ -11,9 +11,11 @@
                
                 string firstName = GetValidFirstName();
                 string lastName = GetValidLastName();
+                string email = GetValidEMail();
                 Console.WriteLine("Registration successful!");
                 Console.WriteLine("First Name: " + firstName);
                 Console.WriteLine("Last Name: " + lastName);
+                Console.WriteLine("Email: " + email);
             }
             catch (UserRegisterException ex)
             {
@@ -60,6 +62,39 @@
             }
 
             return lastName;
+        }
+        static string GetValidEMail()
+        {
+            Console.Write("Enter Email: ");
+            string email = Console.ReadLine();
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new UserRegisterException("Email cannot be empty.");
+            }
+            else if (!email.Contains("@") || !email.Contains("."))
+            {
+                throw new UserRegisterException("Invalid Email format.");
+            }
+            string[] parts = email.Split('@');
+            if (parts.Length != 2)
+            {
+                throw new UserRegisterException("Invalid Email format.");
+            }
+
+            string[] domainParts = parts[1].Split('.');
+            if (domainParts.Length < 2 || domainParts.Length > 4)
+            {
+                throw new UserRegisterException("Invalid Email format.");
+            }
+            foreach (string part in parts)
+            {
+                if (string.IsNullOrEmpty(part))
+                {
+                    throw new UserRegisterException("Invalid Email format.");
+                }
+            }
+
+            return email;
         }
     }
 }
