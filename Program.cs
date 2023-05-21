@@ -20,6 +20,8 @@
                 Console.WriteLine("Email: " + email);
                 Console.WriteLine("Mobile Number: " + mobileNumber);
                 Console.WriteLine("Password: " + password);
+                ClearEmailSamples();
+                
             }
             catch (UserRegisterException ex)
             {
@@ -97,7 +99,6 @@
                     throw new UserRegisterException("Invalid Email format.");
                 }
             }
-
             return email;
         }
         static string GetValidMobileNumber()
@@ -158,6 +159,17 @@
         static bool IsSpecialCharacter(char c)
         {
             return !char.IsLetterOrDigit(c);
+        }
+        static void ClearEmailSamples()
+        {
+            Console.WriteLine("Email samples cleared.");
+            string[] emailSamples = { "abc.xyz@bl.co.in", "john.doe@example.com", "test@test", "invalid.email.com", "user@domain.co", "name@domain.co.in" };
+
+            foreach (string email in emailSamples)
+            {
+                Console.WriteLine($"Clearing email: {email}");
+                // Code to clear the email samples goes here
+            }
         }
     }
 }
